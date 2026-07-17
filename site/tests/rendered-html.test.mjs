@@ -73,3 +73,12 @@ test("keeps the approved palette, responsive rules, and motion safeguards", asyn
   assert.match(css, /overflow-x:\s*hidden/);
   assert.doesNotMatch(css, /cursor:\s*none|canvas|scanline|perspective|parallax/i);
 });
+
+test("publishes request-aware social metadata and a bespoke card", async () => {
+  const response = await render();
+  const html = await response.text();
+  assert.match(html, /property="og:title" content="Keshav Tyagi \| Computer Science &amp; Software"/i);
+  assert.match(html, /property="og:image" content="http:\/\/localhost\/og\.png"/i);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/i);
+  await access(new URL("../public/og.png", import.meta.url));
+});
