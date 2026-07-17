@@ -50,6 +50,14 @@ Feature two projects as clean rows rather than large cards:
 
 Each project row includes its short description, concise technology list, and only verified repository or deployed-demo links. Omit a link entirely when its destination cannot be confirmed; never show a disabled or placeholder action.
 
+Confirmed project destinations:
+
+- WealthLens live site: `https://fin-sight-frontend-blond.vercel.app/`
+- WealthLens repository: `https://github.com/keshav-tyg/WealthLens`
+- BayGuard Tampa live site: `https://bay-guard-usf.vercel.app/`
+
+Do not expose the Vercel deployment-dashboard URL. Link visitors directly to the public production site.
+
 ### Experience
 
 Show the two most relevant roles in the primary experience section:
@@ -74,11 +82,11 @@ End with a small contact section containing the headline “Let’s build someth
 
 Confirmed destinations:
 
-- Email: `mailto:keshav54@usf.edu`
+- Email: `mailto:keshavtyg@gmail.com`
 - GitHub: `https://github.com/keshav-tyg`
 - LinkedIn: `https://linkedin.com/in/keshav--tyagi`
 
-Do not display Keshav's phone number. Do not include a contact form, résumé link, blog, gallery, or separate page in the first version.
+The navigation's `contact me` item and the closing contact button both open a new email draft addressed to `keshavtyg@gmail.com`. Do not display Keshav's phone number. Do not include a contact form, résumé link, blog, gallery, or separate page in the first version.
 
 ## Visual Design
 
