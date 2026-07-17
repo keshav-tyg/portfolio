@@ -82,3 +82,19 @@ test("publishes request-aware social metadata and a bespoke card", async () => {
   assert.match(html, /name="twitter:card" content="summary_large_image"/i);
   await access(new URL("../public/og.png", import.meta.url));
 });
+
+test("provides an independent Vercel Next.js build target", async () => {
+  const packageJson = JSON.parse(
+    await readFile(new URL("../package.json", import.meta.url), "utf8"),
+  );
+  const vercel = JSON.parse(
+    await readFile(new URL("../vercel.json", import.meta.url), "utf8"),
+  );
+
+  assert.equal(packageJson.scripts.build, "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build");
+  assert.equal(packageJson.scripts["build:vercel"], "next build");
+  assert.equal(vercel.$schema, "https://openapi.vercel.sh/vercel.json");
+  assert.equal(vercel.framework, "nextjs");
+  assert.equal(vercel.buildCommand, "npm run build:vercel");
+  assert.equal("outputDirectory" in vercel, false);
+});
