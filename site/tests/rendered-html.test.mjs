@@ -147,12 +147,19 @@ test("gives portfolio text balanced visual emphasis", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
   assert.match(css, /--muted:\s*#8aa4b7/i);
+  assert.match(css, /\.section-label\s*\{[^}]*color:\s*var\(--accent\)[^}]*font:\s*600 11px\/1\.2/s);
   assert.match(css, /h1\s*\{[^}]*font-weight:\s*700/s);
   assert.match(css, /h2\s*\{[^}]*font-weight:\s*650/s);
   assert.match(css, /h3\s*\{[^}]*font-weight:\s*600/s);
   assert.match(css, /\.hero-copy\s*\{[^}]*color:\s*#aec1d0[^}]*font-weight:\s*500/s);
   assert.match(css, /\.about-copy\s*\{[^}]*color:\s*#a9bdcb[^}]*font-size:\s*17px[^}]*font-weight:\s*500/s);
+  assert.match(css, /\.hero-copy strong, \.about-copy strong\s*\{[^}]*color:\s*var\(--foreground\)[^}]*font-weight:\s*600/s);
+  assert.match(css, /\.stack\s*\{[^}]*color:\s*var\(--accent\)[^}]*font:\s*500 11px\/1\.5/s);
   assert.match(css, /\.project\s*>\s*p:last-child,\s*\.job div\s*>\s*p:last-child\s*\{[^}]*font-size:\s*14px[^}]*font-weight:\s*500/s);
+  assert.match(css, /\.job-meta\s*\{[^}]*color:\s*var\(--muted\)[^}]*font:\s*500 11px\/1\.6/s);
+  assert.match(css, /\.role\s*\{[^}]*color:\s*var\(--accent\)[^}]*font:\s*500 11px\/1\.5/s);
   assert.match(css, /\.skills dd\s*\{[^}]*font-size:\s*14px[^}]*font-weight:\s*500/s);
+  assert.match(css, /\.contact > div > p:not\(\.section-label\)\s*\{[^}]*color:\s*var\(--muted\)[^}]*font-size:\s*14px[^}]*font-weight:\s*500/s);
+  assert.match(css, /\.contact-socials\s*\{[^}]*color:\s*var\(--muted\)[^}]*font:\s*500 12px\/1\.2/s);
   assert.match(css, /\.site-footer\s*\{[^}]*font:\s*500 11px\/1\.5/s);
 });
