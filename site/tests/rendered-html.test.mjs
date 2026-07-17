@@ -61,3 +61,15 @@ test("removes disposable starter files and dependency", async () => {
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(access(new URL("../app/_sites-preview/", import.meta.url)));
 });
+
+test("keeps the approved palette, responsive rules, and motion safeguards", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  for (const token of ["#020713", "#0a1c2d", "#d6e8f5", "#718ca1", "#49b9df", "#102a40"]) {
+    assert.match(css.toLowerCase(), new RegExp(token));
+  }
+  assert.match(css, /@media\s*\(max-width:\s*620px\)/);
+  assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
+  assert.match(css, /:focus-visible/);
+  assert.match(css, /overflow-x:\s*hidden/);
+  assert.doesNotMatch(css, /cursor:\s*none|canvas|scanline|perspective|parallax/i);
+});
