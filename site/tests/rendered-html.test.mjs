@@ -64,7 +64,7 @@ test("removes disposable starter files and dependency", async () => {
 
 test("keeps the approved palette, responsive rules, and motion safeguards", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  for (const token of ["#020713", "#0a1c2d", "#d6e8f5", "#718ca1", "#49b9df", "#102a40"]) {
+  for (const token of ["#020713", "#0a1c2d", "#d6e8f5", "#8aa4b7", "#49b9df", "#102a40"]) {
     assert.match(css.toLowerCase(), new RegExp(token));
   }
   assert.match(css, /@media\s*\(max-width:\s*620px\)/);
@@ -141,4 +141,18 @@ test("documents deployment and exposes accessible link contracts", async () => {
     assert.match(readme, contract);
   }
   assert.doesNotMatch(readme, /starter|loading skeleton/i);
+});
+
+test("gives portfolio text balanced visual emphasis", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+
+  assert.match(css, /--muted:\s*#8aa4b7/i);
+  assert.match(css, /h1\s*\{[^}]*font-weight:\s*700/s);
+  assert.match(css, /h2\s*\{[^}]*font-weight:\s*650/s);
+  assert.match(css, /h3\s*\{[^}]*font-weight:\s*600/s);
+  assert.match(css, /\.hero-copy\s*\{[^}]*color:\s*#aec1d0[^}]*font-weight:\s*500/s);
+  assert.match(css, /\.about-copy\s*\{[^}]*color:\s*#a9bdcb[^}]*font-size:\s*17px[^}]*font-weight:\s*500/s);
+  assert.match(css, /\.project\s*>\s*p:last-child,\s*\.job div\s*>\s*p:last-child\s*\{[^}]*font-size:\s*14px[^}]*font-weight:\s*500/s);
+  assert.match(css, /\.skills dd\s*\{[^}]*font-size:\s*14px[^}]*font-weight:\s*500/s);
+  assert.match(css, /\.site-footer\s*\{[^}]*font:\s*500 11px\/1\.5/s);
 });
