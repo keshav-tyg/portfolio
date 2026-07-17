@@ -147,11 +147,12 @@ All interactive targets must remain comfortably tappable. Text must not require 
 
 ## Technical Architecture
 
-Build a static, single-route site using the Sites starter structure. Keep the implementation small:
+Build a static, single-route site using the Sites starter structure. The same source must support two build targets: Vinext for OpenAI Sites and standard Next.js for Vercel. Keep the implementation small:
 
 - `app/page.tsx` composes the page sections
 - `app/globals.css` owns the visual system and responsive rules
 - `app/layout.tsx` owns metadata and the social-preview configuration
+- `vercel.json` selects Vercel's `nextjs` framework preset and its dedicated Next.js build command
 - Small local components may be extracted only when they clarify repeated project or experience rows
 
 All portfolio content is local and version-controlled. The page has no database, CMS, runtime API calls, authentication, analytics requirement, or form submission.
@@ -167,6 +168,7 @@ Email contact uses a `mailto:` link, so there is no submission state or server-s
 Before publishing:
 
 - Run the production build and resolve all failures
+- Run the dedicated Vercel/Next.js build and resolve all failures
 - Check the layout at mobile and desktop widths
 - Test navigation with a keyboard
 - Verify visible focus and reduced-motion behavior
