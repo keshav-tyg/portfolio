@@ -98,3 +98,47 @@ test("provides an independent Vercel Next.js build target", async () => {
   assert.equal(vercel.buildCommand, "npm run build:vercel");
   assert.equal("outputDirectory" in vercel, false);
 });
+
+test("documents deployment and exposes accessible link contracts", async () => {
+  const response = await render();
+  const html = await response.text();
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const readme = await readFile(new URL("../README.md", import.meta.url), "utf8");
+
+  for (const label of [
+    "GitHub profile",
+    "LinkedIn profile",
+    "WealthLens live site",
+    "WealthLens GitHub repository",
+    "BayGuard Tampa live site",
+  ]) {
+    assert.match(html, new RegExp(`aria-label="${label}"`, "i"));
+  }
+
+  assert.match(css, /\.job-meta\s*\{[^}]*color:\s*var\(--muted\)/s);
+  assert.match(css, /\.site-footer\s*\{[^}]*color:\s*var\(--muted\)/s);
+  for (const selector of [".brand", ".contact-socials a", ".site-footer a"]) {
+    const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const rule = new RegExp(
+      `${escapedSelector}\\s*\\{[^}]*display:\\s*inline-flex[^}]*align-items:\\s*center[^}]*min-height:\\s*44px`,
+      "s",
+    );
+    assert.match(css, rule);
+  }
+  assert.match(css, /\.site-footer a\s*\{[^}]*text-decoration:\s*underline[^}]*text-underline-offset:/s);
+
+  for (const contract of [
+    /npm run dev/,
+    /npm test/,
+    /npm run build\b/,
+    /Vinext/i,
+    /Sites/i,
+    /npm run build:vercel/,
+    /Vercel/,
+    /Root Directory[^\n]*site/i,
+    /Project structure/i,
+  ]) {
+    assert.match(readme, contract);
+  }
+  assert.doesNotMatch(readme, /starter|loading skeleton/i);
+});

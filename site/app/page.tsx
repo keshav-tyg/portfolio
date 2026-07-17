@@ -5,8 +5,16 @@ const projects = [
     description:
       "An AI financial copilot that connects real bank data to cash-flow forecasts, anomaly detection, personalized summaries, and grounded financial guidance.",
     links: [
-      { label: "Live site", href: "https://fin-sight-frontend-blond.vercel.app/" },
-      { label: "GitHub", href: "https://github.com/keshav-tyg/WealthLens" },
+      {
+        label: "Live site",
+        href: "https://fin-sight-frontend-blond.vercel.app/",
+        ariaLabel: "WealthLens live site",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/keshav-tyg/WealthLens",
+        ariaLabel: "WealthLens GitHub repository",
+      },
     ],
   },
   {
@@ -14,7 +22,13 @@ const projects = [
     stack: "React · Express · Gemini · Redis · REST APIs",
     description:
       "A disaster-intelligence platform that combines five live data sources into evacuation guidance, situational summaries, and automated alerts.",
-    links: [{ label: "Live site", href: "https://bay-guard-usf.vercel.app/" }],
+    links: [
+      {
+        label: "Live site",
+        href: "https://bay-guard-usf.vercel.app/",
+        ariaLabel: "BayGuard Tampa live site",
+      },
+    ],
   },
 ] as const;
 
@@ -50,9 +64,17 @@ const external = {
   linkedin: "https://linkedin.com/in/keshav--tyagi",
 } as const;
 
-function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+function ExternalLink({
+  href,
+  ariaLabel,
+  children,
+}: {
+  href: string;
+  ariaLabel?: string;
+  children: React.ReactNode;
+}) {
   return (
-    <a href={href} target="_blank" rel="noreferrer">
+    <a href={href} target="_blank" rel="noreferrer" aria-label={ariaLabel}>
       {children}
       <span aria-hidden="true"> ↗</span>
     </a>
@@ -84,8 +106,8 @@ export default function Home() {
           </p>
           <div className="hero-links" aria-label="Profile links">
             <a href="#about">About me <span aria-hidden="true">↓</span></a>
-            <ExternalLink href={external.github}>GitHub</ExternalLink>
-            <ExternalLink href={external.linkedin}>LinkedIn</ExternalLink>
+            <ExternalLink href={external.github} ariaLabel="GitHub profile">GitHub</ExternalLink>
+            <ExternalLink href={external.linkedin} ariaLabel="LinkedIn profile">LinkedIn</ExternalLink>
             <a href={external.email}>Email <span aria-hidden="true">↗</span></a>
           </div>
         </section>
@@ -108,7 +130,9 @@ export default function Home() {
                   <h3>{project.name}</h3>
                   <div className="project-links">
                     {project.links.map((link) => (
-                      <ExternalLink href={link.href} key={link.href}>{link.label}</ExternalLink>
+                      <ExternalLink href={link.href} ariaLabel={link.ariaLabel} key={link.href}>
+                        {link.label}
+                      </ExternalLink>
                     ))}
                   </div>
                 </div>
@@ -155,8 +179,8 @@ export default function Home() {
             <h2 id="contact-title">Let’s build something useful.</h2>
             <p>I’m open to internships, software engineering opportunities, and conversations about interesting projects.</p>
             <div className="contact-socials">
-              <ExternalLink href={external.github}>GitHub</ExternalLink>
-              <ExternalLink href={external.linkedin}>LinkedIn</ExternalLink>
+              <ExternalLink href={external.github} ariaLabel="GitHub profile">GitHub</ExternalLink>
+              <ExternalLink href={external.linkedin} ariaLabel="LinkedIn profile">LinkedIn</ExternalLink>
             </div>
           </div>
           <a className="contact-button" href={external.email}>Contact me <span aria-hidden="true">↗</span></a>
