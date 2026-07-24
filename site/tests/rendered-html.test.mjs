@@ -236,6 +236,7 @@ test("implements the approved Editorial Rail visual system", async () => {
   assert.match(css, /\.shell\s*\{[^}]*width:\s*min\(1040px,\s*calc\(100%\s*-\s*72px\)\)/s);
   assert.match(css, /\.hero,\s*\.editorial-section\s*\{[^}]*grid-template-columns:\s*180px\s+1fr/s);
   assert.match(css, /\.hero-main\s*\{[^}]*grid-column:\s*2/s);
+  assert.match(css, /\.hero-main\s*\{[^}]*min-width:\s*0/s);
   assert.match(
     css,
     /@media\s*\(max-width:\s*760px\)\s*\{[\s\S]*?\.hero-main\s*\{[^}]*grid-column:\s*1/s,

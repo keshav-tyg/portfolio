@@ -136,6 +136,7 @@ a:focus-visible {
 
 .hero-main {
   grid-column: 2;
+  min-width: 0;
   padding: 54px 0 48px;
 }
 h1, h2, h3, p { margin-top: 0; }
