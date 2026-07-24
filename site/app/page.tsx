@@ -29,8 +29,8 @@ const projects = [
     category: "Civic technology",
     image: {
       src: "/projects/bayguard.webp",
-      width: 1112,
-      height: 712,
+      width: 1761,
+      height: 944,
       alt: "BayGuard Tampa risk dashboard",
     },
     tags: ["React", "Express", "Gemini", "Redis", "REST APIs"],

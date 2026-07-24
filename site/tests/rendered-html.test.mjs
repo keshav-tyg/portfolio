@@ -1,6 +1,18 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
+
+function readLossyWebPDimensions(bytes) {
+  assert.equal(bytes.toString("ascii", 0, 4), "RIFF");
+  assert.equal(bytes.toString("ascii", 8, 12), "WEBP");
+  assert.equal(bytes.toString("ascii", 12, 16), "VP8 ");
+
+  return {
+    width: bytes.readUInt16LE(26) & 0x3fff,
+    height: bytes.readUInt16LE(28) & 0x3fff,
+  };
+}
 
 async function render() {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -68,12 +80,23 @@ test("ships optimized local screenshots for both projects", async () => {
     assert.ok(bytes.byteLength > 10_000, `${asset.pathname} should contain a real screenshot`);
     assert.ok(bytes.byteLength < 200_000, `${asset.pathname} should remain web-sized`);
   }
+
+  const bayGuardBytes = await readFile(assets[1]);
+  assert.equal(
+    createHash("sha256").update(bayGuardBytes).digest("hex"),
+    "8fe1e86149de103f23de9638c98fc415468e34233a6c2c15a9f64a5d74aac02a",
+    "BayGuard should keep the approved fully loaded risk-map capture",
+  );
 });
 
 test("renders project screenshots from direct runtime-compatible asset URLs", async () => {
   const response = await render();
   const html = await response.text();
   const pageSource = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const bayGuardBytes = await readFile(
+    new URL("../public/projects/bayguard.webp", import.meta.url),
+  );
+  const bayGuardDimensions = readLossyWebPDimensions(bayGuardBytes);
 
   assert.match(
     html,
@@ -81,7 +104,9 @@ test("renders project screenshots from direct runtime-compatible asset URLs", as
   );
   assert.match(
     html,
-    /<img[^>]*src="\/projects\/bayguard\.webp"[^>]*width="1112"[^>]*height="712"/,
+    new RegExp(
+      `<img[^>]*src="/projects/bayguard\\.webp"[^>]*width="${bayGuardDimensions.width}"[^>]*height="${bayGuardDimensions.height}"`,
+    ),
   );
   assert.doesNotMatch(html, /\/_(?:vinext|next)\/image\b/i);
   assert.doesNotMatch(pageSource, /from\s+["']next\/image["']/);
