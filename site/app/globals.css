@@ -32,7 +32,7 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
-a:hover { color: var(--accent); }
+a:hover { color: var(--foreground); }
 a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 5px;
@@ -211,7 +211,7 @@ h1 {
 
 .work-section { padding-bottom: 70px; }
 .work-note {
-  max-width: 42ch;
+  max-width: 60ch;
   margin: 14px 0 29px;
   color: var(--muted);
   font-size: 14px;
@@ -290,7 +290,7 @@ h1 {
   line-height: 1.65;
 }
 
-.project-copy { max-width: 48ch; margin: 11px 0 0; }
+.project-copy { max-width: 60ch; margin: 11px 0 0; }
 
 .tags {
   display: flex;

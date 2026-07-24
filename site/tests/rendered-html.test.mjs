@@ -190,7 +190,11 @@ test("implements the approved Editorial Rail visual system", async () => {
   assert.match(css, /\.hero,\s*\.editorial-section\s*\{[^}]*grid-template-columns:\s*180px\s+1fr/s);
   assert.match(css, /\.section-content\s*>\s*h2\s*\{[^}]*font-size:\s*42px/s);
   assert.match(css, /\.about-copy\s*\{[^}]*max-width:\s*65ch[^}]*font-size:\s*17px/s);
+  assert.match(css, /(?:^|\n)a:hover\s*\{\s*color:\s*var\(--foreground\);\s*\}/);
+  assert.doesNotMatch(css, /(?:^|\n)a:hover\s*\{[^}]*color:\s*var\(--accent\)/s);
+  assert.match(css, /\.work-note\s*\{[^}]*max-width:\s*60ch/s);
   assert.match(css, /\.project\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1\.05fr\)\s+minmax\(0,\s*\.95fr\)/s);
+  assert.match(css, /\.project-copy\s*\{[^}]*max-width:\s*60ch/s);
   assert.match(css, /\.hero-primary\s*\{[^}]*min-height:\s*44px[^}]*background:\s*var\(--accent\)/s);
   assert.match(css, /@media\s*\(max-width:\s*760px\)/);
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
