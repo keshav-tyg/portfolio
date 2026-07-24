@@ -1,7 +1,16 @@
+import Image from "next/image";
+
 const projects = [
   {
     name: "WealthLens",
-    stack: "Next.js · FastAPI · PostgreSQL · Redis · Machine Learning",
+    category: "Product + AI",
+    image: {
+      src: "/projects/wealthlens.webp",
+      width: 1265,
+      height: 712,
+      alt: "WealthLens financial copilot landing page",
+    },
+    tags: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "Machine Learning"],
     description:
       "An AI financial copilot that connects real bank data to cash-flow forecasts, anomaly detection, personalized summaries, and grounded financial guidance.",
     links: [
@@ -19,7 +28,14 @@ const projects = [
   },
   {
     name: "BayGuard Tampa",
-    stack: "React · Express · Gemini · Redis · REST APIs",
+    category: "Civic technology",
+    image: {
+      src: "/projects/bayguard.webp",
+      width: 1112,
+      height: 712,
+      alt: "BayGuard Tampa risk dashboard",
+    },
+    tags: ["React", "Express", "Gemini", "Redis", "REST APIs"],
     description:
       "A disaster-intelligence platform that combines five live data sources into evacuation guidance, situational summaries, and automated alerts.",
     links: [
@@ -81,53 +97,123 @@ function ExternalLink({
   );
 }
 
+function SectionRail({
+  id,
+  index,
+  label,
+  title,
+  className = "",
+  children,
+}: {
+  id: string;
+  index: string;
+  label: string;
+  title: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const titleId = `${id}-title`;
+
+  return (
+    <section
+      id={id}
+      className={`content-section editorial-section ${className}`.trim()}
+      aria-labelledby={titleId}
+    >
+      <p className="section-label">
+        {index} / {label}
+      </p>
+      <div className="section-content">
+        <h2 id={titleId}>{title}</h2>
+        {children}
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
+
       <header className="site-header shell">
         <nav aria-label="Primary navigation">
-          <a className="brand" href="#top" aria-label="Keshav Tyagi, back to top">keshav.tyagi</a>
+          <a className="brand" href="#top" aria-label="Keshav Tyagi, back to top">
+            <span className="brand-dot" aria-hidden="true" />
+            Keshav Tyagi
+          </a>
           <div className="nav-links">
-            <a href="#about">about</a>
-            <a href="#work">work</a>
-            <a href="#experience">experience</a>
-            <a className="nav-contact" href={external.email}>contact me</a>
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href={external.email}>Contact</a>
           </div>
         </nav>
       </header>
 
       <main id="main-content" className="shell">
         <section id="top" className="hero" aria-labelledby="hero-title">
-          <p className="eyebrow">CS student · systems + AI</p>
-          <h1 id="hero-title">Keshav Tyagi</h1>
-          <p className="hero-copy">
-            I build <strong>practical software across the stack</strong>, with a growing interest in intelligent systems that turn complex data into useful decisions.
-          </p>
-          <div className="hero-links" aria-label="Profile links">
-            <a href="#about">About me <span aria-hidden="true">↓</span></a>
-            <ExternalLink href={external.github} ariaLabel="GitHub profile">GitHub</ExternalLink>
-            <ExternalLink href={external.linkedin} ariaLabel="LinkedIn profile">LinkedIn</ExternalLink>
-            <a href={external.email}>Email <span aria-hidden="true">↗</span></a>
+          <p className="eyebrow">CS @ USF<br />Available 2026</p>
+          <div className="hero-main">
+            <h1 id="hero-title">I build useful software for real people.</h1>
+            <p className="hero-copy">
+              I’m Keshav, a third-year computer science student focused on practical,
+              thoughtful products—from intelligent systems to full-stack web apps.
+            </p>
+            <div className="hero-actions" aria-label="Profile links">
+              <a className="hero-primary" href={external.email}>
+                Email me <span aria-hidden="true">↗</span>
+              </a>
+              <ExternalLink href={external.github} ariaLabel="GitHub profile">GitHub</ExternalLink>
+              <ExternalLink href={external.linkedin} ariaLabel="LinkedIn profile">LinkedIn</ExternalLink>
+            </div>
           </div>
         </section>
 
-        <section id="about" className="content-section" aria-labelledby="about-title">
-          <p className="section-label">01 / About</p>
-          <h2 id="about-title" className="sr-only">About</h2>
+        <SectionRail
+          id="about"
+          index="01"
+          label="About"
+          title="Curious by default. Practical by design."
+        >
           <p className="about-copy">
-            I’m a third-year computer science student at the <strong>University of South Florida</strong>. I like understanding the whole system—what problem it solves, how the product feels, and what makes it reliable. Lately, I’m especially interested in where <strong>AI can improve real workflows</strong> without becoming the whole story.
+            I’m a third-year computer science student at the <strong>University of South Florida</strong>.
+            I like turning messy problems into software that feels clear and dependable. My interests
+            are broad—product engineering, full-stack systems, data, and AI—but the common thread is
+            simple: <strong>build things people can actually use.</strong>
           </p>
-        </section>
+        </SectionRail>
 
-        <section id="work" className="content-section" aria-labelledby="work-title">
-          <p className="section-label">02 / Selected work</p>
-          <h2 id="work-title" className="sr-only">Selected work</h2>
-          <div className="project-list">
-            {projects.map((project) => (
+        <SectionRail
+          id="work"
+          index="02"
+          label="Selected work"
+          title="A few things I’ve built."
+          className="work-section"
+        >
+          <p className="work-note">Two projects shaped around clear problems and useful outcomes.</p>
+          <div className="projects">
+            {projects.map((project, projectIndex) => (
               <article className="project" key={project.name}>
-                <div className="project-heading">
+                <div className="project-shot">
+                  <Image
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    width={project.image.width}
+                    height={project.image.height}
+                    sizes="(max-width: 760px) calc(100vw - 36px), 540px"
+                  />
+                </div>
+                <div className="project-content">
+                  <p className="project-meta">
+                    <span>{String(projectIndex + 1).padStart(2, "0")}</span>
+                    {" · "}
+                    {project.category}
+                  </p>
                   <h3>{project.name}</h3>
+                  <p className="project-copy">{project.description}</p>
+                  <ul className="tags" aria-label={`${project.name} technologies`}>
+                    {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
+                  </ul>
                   <div className="project-links">
                     {project.links.map((link) => (
                       <ExternalLink href={link.href} ariaLabel={link.ariaLabel} key={link.href}>
@@ -136,16 +222,12 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-                <p className="stack">{project.stack}</p>
-                <p>{project.description}</p>
               </article>
             ))}
           </div>
-        </section>
+        </SectionRail>
 
-        <section id="experience" className="content-section" aria-labelledby="experience-title">
-          <p className="section-label">03 / Experience</p>
-          <h2 id="experience-title" className="sr-only">Experience</h2>
+        <SectionRail id="experience" index="03" label="Experience" title="Experience">
           <div className="experience-list">
             {experience.map((item) => (
               <article className="job" key={item.organization}>
@@ -153,16 +235,14 @@ export default function Home() {
                 <div>
                   <h3>{item.organization}</h3>
                   <p className="role">{item.role}</p>
-                  <p>{item.description}</p>
+                  <p className="job-copy">{item.description}</p>
                 </div>
               </article>
             ))}
           </div>
-        </section>
+        </SectionRail>
 
-        <section id="toolkit" className="content-section" aria-labelledby="toolkit-title">
-          <p className="section-label">04 / Toolkit</p>
-          <h2 id="toolkit-title" className="sr-only">Toolkit</h2>
+        <SectionRail id="toolkit" index="04" label="Toolkit" title="Toolkit">
           <dl className="skills">
             {skills.map(([group, values]) => (
               <div className="skill-row" key={group}>
@@ -171,20 +251,25 @@ export default function Home() {
               </div>
             ))}
           </dl>
-        </section>
+        </SectionRail>
 
-        <section id="contact" className="content-section contact" aria-labelledby="contact-title">
-          <div>
-            <p className="section-label">05 / Contact</p>
-            <h2 id="contact-title">Let’s build something useful.</h2>
-            <p>I’m open to internships, software engineering opportunities, and conversations about interesting projects.</p>
-            <div className="contact-socials">
-              <ExternalLink href={external.github} ariaLabel="GitHub profile">GitHub</ExternalLink>
-              <ExternalLink href={external.linkedin} ariaLabel="LinkedIn profile">LinkedIn</ExternalLink>
+        <SectionRail id="contact" index="05" label="Contact" title="Let’s build something useful." className="contact-section">
+          <div className="contact-layout">
+            <div>
+              <p className="contact-copy">
+                I’m open to internships, software engineering opportunities, and
+                conversations about interesting projects.
+              </p>
+              <div className="contact-socials">
+                <ExternalLink href={external.github} ariaLabel="GitHub profile">GitHub</ExternalLink>
+                <ExternalLink href={external.linkedin} ariaLabel="LinkedIn profile">LinkedIn</ExternalLink>
+              </div>
             </div>
+            <a className="contact-button" href={external.email}>
+              Contact me <span aria-hidden="true">↗</span>
+            </a>
           </div>
-          <a className="contact-button" href={external.email}>Contact me <span aria-hidden="true">↗</span></a>
-        </section>
+        </SectionRail>
       </main>
 
       <footer className="site-footer shell">
