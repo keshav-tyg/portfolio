@@ -70,6 +70,23 @@ test("ships optimized local screenshots for both projects", async () => {
   }
 });
 
+test("renders project screenshots from direct runtime-compatible asset URLs", async () => {
+  const response = await render();
+  const html = await response.text();
+  const pageSource = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+
+  assert.match(
+    html,
+    /<img[^>]*src="\/projects\/wealthlens\.webp"[^>]*width="1265"[^>]*height="712"/,
+  );
+  assert.match(
+    html,
+    /<img[^>]*src="\/projects\/bayguard\.webp"[^>]*width="1112"[^>]*height="712"/,
+  );
+  assert.doesNotMatch(html, /\/_(?:vinext|next)\/image\b/i);
+  assert.doesNotMatch(pageSource, /from\s+["']next\/image["']/);
+});
+
 test("renders the approved Editorial Rail hierarchy", async () => {
   const response = await render();
   const html = await response.text();

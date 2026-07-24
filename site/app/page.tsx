@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const projects = [
   {
     name: "WealthLens",
@@ -195,12 +193,14 @@ export default function Home() {
             {projects.map((project, projectIndex) => (
               <article className="project" key={project.name}>
                 <div className="project-shot">
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element -- Vinext's optimizer route requires unavailable local runtime bindings. */}
+                  <img
                     src={project.image.src}
                     alt={project.image.alt}
                     width={project.image.width}
                     height={project.image.height}
-                    sizes="(max-width: 760px) calc(100vw - 36px), 540px"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="project-content">
