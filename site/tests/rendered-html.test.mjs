@@ -97,14 +97,13 @@ test("removes disposable starter files and dependency", async () => {
 
 test("keeps the approved palette, responsive rules, and motion safeguards", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  for (const token of ["#020713", "#0a1c2d", "#d6e8f5", "#8aa4b7", "#49b9df", "#102a40"]) {
+  for (const token of ["#020817", "#edf6ff", "#b8c9d8", "#7891a7", "#56d2ff", "#19304b"]) {
     assert.match(css.toLowerCase(), new RegExp(token));
   }
-  assert.match(css, /@media\s*\(max-width:\s*620px\)/);
+  assert.match(css, /@media\s*\(max-width:\s*760px\)/);
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
   assert.match(css, /:focus-visible/);
   assert.match(css, /overflow-x:\s*hidden/);
-  assert.doesNotMatch(css, /cursor:\s*none|canvas|scanline|perspective|parallax/i);
 });
 
 test("publishes request-aware social metadata and a bespoke card", async () => {
@@ -150,15 +149,18 @@ test("documents deployment and exposes accessible link contracts", async () => {
 
   assert.match(css, /\.job-meta\s*\{[^}]*color:\s*var\(--muted\)/s);
   assert.match(css, /\.site-footer\s*\{[^}]*color:\s*var\(--muted\)/s);
-  for (const selector of [".brand", ".contact-socials a", ".site-footer a"]) {
-    const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const rule = new RegExp(
-      `${escapedSelector}\\s*\\{[^}]*display:\\s*inline-flex[^}]*align-items:\\s*center[^}]*min-height:\\s*44px`,
-      "s",
-    );
-    assert.match(css, rule);
-  }
-  assert.match(css, /\.site-footer a\s*\{[^}]*text-decoration:\s*underline[^}]*text-underline-offset:/s);
+  assert.match(
+    css,
+    /\.brand\s*\{[^}]*display:\s*inline-flex[^}]*align-items:\s*center[^}]*min-height:\s*44px/s,
+  );
+  assert.match(
+    css,
+    /\.nav-links a,\s*\.hero-actions a,\s*\.project-links a,\s*\.contact-socials a,\s*\.site-footer a\s*\{[^}]*min-height:\s*44px[^}]*display:\s*inline-flex[^}]*align-items:\s*center/s,
+  );
+  assert.match(
+    css,
+    /\.project-links a,\s*\.contact-socials a,\s*\.site-footer a\s*\{[^}]*text-decoration:\s*underline[^}]*text-underline-offset:/s,
+  );
 
   for (const contract of [
     /npm run dev/,
@@ -176,23 +178,23 @@ test("documents deployment and exposes accessible link contracts", async () => {
   assert.doesNotMatch(readme, /starter|loading skeleton/i);
 });
 
-test("gives portfolio text balanced visual emphasis", async () => {
+test("implements the approved Editorial Rail visual system", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
-  assert.match(css, /--muted:\s*#8aa4b7/i);
-  assert.match(css, /\.section-label\s*\{[^}]*color:\s*var\(--accent\)[^}]*font:\s*600 11px\/1\.2/s);
-  assert.match(css, /h1\s*\{[^}]*font-weight:\s*700/s);
-  assert.match(css, /h2\s*\{[^}]*font-weight:\s*650/s);
-  assert.match(css, /h3\s*\{[^}]*font-weight:\s*600/s);
-  assert.match(css, /\.hero-copy\s*\{[^}]*color:\s*#aec1d0[^}]*font-weight:\s*500/s);
-  assert.match(css, /\.about-copy\s*\{[^}]*color:\s*#a9bdcb[^}]*font-size:\s*17px[^}]*font-weight:\s*500/s);
-  assert.match(css, /\.hero-copy strong, \.about-copy strong\s*\{[^}]*color:\s*var\(--foreground\)[^}]*font-weight:\s*600/s);
-  assert.match(css, /\.stack\s*\{[^}]*color:\s*var\(--accent\)[^}]*font:\s*500 11px\/1\.5/s);
-  assert.match(css, /\.project\s*>\s*p:last-child,\s*\.job div\s*>\s*p:last-child\s*\{[^}]*font-size:\s*14px[^}]*font-weight:\s*500/s);
-  assert.match(css, /\.job-meta\s*\{[^}]*color:\s*var\(--muted\)[^}]*font:\s*500 11px\/1\.6/s);
-  assert.match(css, /\.role\s*\{[^}]*color:\s*var\(--accent\)[^}]*font:\s*500 11px\/1\.5/s);
-  assert.match(css, /\.skills dd\s*\{[^}]*font-size:\s*14px[^}]*font-weight:\s*500/s);
-  assert.match(css, /\.contact > div > p:not\(\.section-label\)\s*\{[^}]*color:\s*var\(--muted\)[^}]*font-size:\s*14px[^}]*font-weight:\s*500/s);
-  assert.match(css, /\.contact-socials\s*\{[^}]*color:\s*var\(--muted\)[^}]*font:\s*500 12px\/1\.2/s);
-  assert.match(css, /\.site-footer\s*\{[^}]*font:\s*500 11px\/1\.5/s);
+  for (const token of ["#020817", "#edf6ff", "#b8c9d8", "#7891a7", "#56d2ff"]) {
+    assert.match(css.toLowerCase(), new RegExp(token));
+  }
+
+  assert.match(css, /--font-sans:\s*"Avenir Next",\s*Avenir,\s*Inter/);
+  assert.match(css, /\.shell\s*\{[^}]*width:\s*min\(1040px,\s*calc\(100%\s*-\s*72px\)\)/s);
+  assert.match(css, /\.hero,\s*\.editorial-section\s*\{[^}]*grid-template-columns:\s*180px\s+1fr/s);
+  assert.match(css, /\.section-content\s*>\s*h2\s*\{[^}]*font-size:\s*42px/s);
+  assert.match(css, /\.about-copy\s*\{[^}]*max-width:\s*65ch[^}]*font-size:\s*17px/s);
+  assert.match(css, /\.project\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1\.05fr\)\s+minmax\(0,\s*\.95fr\)/s);
+  assert.match(css, /\.hero-primary\s*\{[^}]*min-height:\s*44px[^}]*background:\s*var\(--accent\)/s);
+  assert.match(css, /@media\s*\(max-width:\s*760px\)/);
+  assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
+  assert.match(css, /:focus-visible/);
+  assert.match(css, /overflow-x:\s*hidden/);
+  assert.doesNotMatch(css, /cursor:\s*none|canvas|scanline|perspective|parallax/i);
 });
