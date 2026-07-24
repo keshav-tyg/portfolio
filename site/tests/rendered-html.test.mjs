@@ -56,6 +56,19 @@ test("renders Keshav's portfolio content and verified links", async () => {
   assert.doesNotMatch(html, /résumé|resume|keshav54@usf\.edu|813[ -]327[ -]9470/i);
 });
 
+test("ships optimized local screenshots for both projects", async () => {
+  const assets = [
+    new URL("../public/projects/wealthlens.webp", import.meta.url),
+    new URL("../public/projects/bayguard.webp", import.meta.url),
+  ];
+
+  for (const asset of assets) {
+    const bytes = await readFile(asset);
+    assert.ok(bytes.byteLength > 10_000, `${asset.pathname} should contain a real screenshot`);
+    assert.ok(bytes.byteLength < 200_000, `${asset.pathname} should remain web-sized`);
+  }
+});
+
 test("removes disposable starter files and dependency", async () => {
   const packageJson = await readFile(new URL("../package.json", import.meta.url), "utf8");
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
