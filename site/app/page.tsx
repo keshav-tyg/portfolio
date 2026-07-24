@@ -157,7 +157,7 @@ export default function Home() {
               I’m Keshav, a third-year computer science student focused on practical,
               thoughtful products—from intelligent systems to full-stack web apps.
             </p>
-            <div className="hero-actions" aria-label="Profile links">
+            <div className="hero-actions" role="group" aria-label="Profile links">
               <a className="hero-primary" href={external.email}>
                 Email me <span aria-hidden="true">↗</span>
               </a>

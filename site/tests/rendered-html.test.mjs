@@ -99,6 +99,7 @@ test("renders the approved Editorial Rail hierarchy", async () => {
   assert.match(html, /<h2 id="work-title"[^>]*>A few things I’ve built\.<\/h2>/);
   assert.match(html, /<h2 id="experience-title"[^>]*>Experience<\/h2>/);
   assert.match(html, /<h2 id="toolkit-title"[^>]*>Toolkit<\/h2>/);
+  assert.match(html, /<h2 id="contact-title"[^>]*>Let’s build something useful\.<\/h2>/);
   assert.match(html, /alt="WealthLens financial copilot landing page"/);
   assert.match(html, /alt="BayGuard Tampa risk dashboard"/);
   assert.match(html, /projects(?:%2F|\/)wealthlens\.webp/i);
@@ -164,6 +165,10 @@ test("documents deployment and exposes accessible link contracts", async () => {
     assert.match(html, new RegExp(`aria-label="${label}"`, "i"));
   }
 
+  assert.match(
+    html,
+    /<div[^>]*class="hero-actions"[^>]*role="group"[^>]*aria-label="Profile links"/,
+  );
   assert.match(css, /\.job-meta\s*\{[^}]*color:\s*var\(--muted\)/s);
   assert.match(css, /\.site-footer\s*\{[^}]*color:\s*var\(--muted\)/s);
   assert.match(
@@ -214,6 +219,10 @@ test("implements the approved Editorial Rail visual system", async () => {
   assert.match(css, /\.project-copy\s*\{[^}]*max-width:\s*60ch/s);
   assert.match(css, /\.hero-primary\s*\{[^}]*min-height:\s*44px[^}]*background:\s*var\(--accent\)/s);
   assert.match(css, /@media\s*\(max-width:\s*760px\)/);
+  assert.doesNotMatch(
+    css,
+    /\.nav-links\s+a:nth-child\(2\)\s*\{[^}]*display:\s*none/s,
+  );
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
   assert.match(css, /:focus-visible/);
   assert.match(css, /overflow-x:\s*hidden/);

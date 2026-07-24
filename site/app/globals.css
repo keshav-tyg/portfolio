@@ -462,7 +462,6 @@ h1 {
 }
 
 @media (max-width: 520px) {
-  .nav-links a:nth-child(2) { display: none; }
   .nav-links { gap: 18px; }
   h1 { font-size: clamp(46px, 14vw, 64px); }
   .section-content > h2 { font-size: 36px; }
