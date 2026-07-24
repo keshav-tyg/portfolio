@@ -150,13 +150,8 @@ export default function Home() {
 
       <main id="main-content" className="shell">
         <section id="top" className="hero" aria-labelledby="hero-title">
-          <p className="eyebrow">CS @ USF<br />Available 2026</p>
           <div className="hero-main">
-            <h1 id="hero-title">I build useful software for real people.</h1>
-            <p className="hero-copy">
-              I’m Keshav, a third-year computer science student focused on practical,
-              thoughtful products—from intelligent systems to full-stack web apps.
-            </p>
+            <h1 id="hero-title">Software, data, and applied AI.</h1>
             <div className="hero-actions" role="group" aria-label="Profile links">
               <a className="hero-primary" href={external.email}>
                 Email me <span aria-hidden="true">↗</span>
@@ -171,7 +166,7 @@ export default function Home() {
           id="about"
           index="01"
           label="About"
-          title="Curious by default. Practical by design."
+          title="About me."
         >
           <p className="about-copy">
             I’m a third-year computer science student at the <strong>University of South Florida</strong>.

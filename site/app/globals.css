@@ -117,7 +117,6 @@ a:focus-visible {
   border-bottom: 1px solid rgba(61, 96, 126, .42);
 }
 
-.eyebrow,
 .section-label,
 .project-meta,
 .job-meta,
@@ -126,7 +125,6 @@ a:focus-visible {
   font-family: var(--font-mono);
 }
 
-.eyebrow,
 .section-label {
   margin: 0;
   color: var(--accent);
@@ -136,7 +134,10 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.hero-main { padding: 54px 0 48px; }
+.hero-main {
+  grid-column: 2;
+  padding: 54px 0 48px;
+}
 h1, h2, h3, p { margin-top: 0; }
 
 h1 {
@@ -146,15 +147,6 @@ h1 {
   font-weight: 680;
   line-height: .98;
   letter-spacing: -.055em;
-}
-
-.hero-copy {
-  max-width: 60ch;
-  margin-bottom: 25px;
-  color: var(--body);
-  font-size: 18px;
-  line-height: 1.62;
-  letter-spacing: -.012em;
 }
 
 .hero-actions {
@@ -443,7 +435,10 @@ h1 {
     gap: 15px;
   }
   .hero { padding: 42px 0; }
-  .hero-main { padding: 0; }
+  .hero-main {
+    grid-column: 1;
+    padding: 0;
+  }
   .section-label { padding-top: 0; }
   .content-section { padding: 44px 0; }
   .project { grid-template-columns: 1fr; }

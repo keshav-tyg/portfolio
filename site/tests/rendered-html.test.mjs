@@ -42,8 +42,7 @@ test("renders Keshav's portfolio content and verified links", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>Keshav Tyagi \| Computer Science &amp; Software<\/title>/i);
-  assert.match(html, /I build useful software for real people\./);
-  assert.match(html, /CS @ USF/);
+  assert.match(html, /Software, data, and applied AI\./);
   assert.match(html, /Keshav Tyagi/);
   assert.match(html, /id="main-content"/);
   assert.match(html, /id="about"/);
@@ -116,11 +115,12 @@ test("renders the approved Editorial Rail hierarchy", async () => {
   const response = await render();
   const html = await response.text();
 
-  assert.match(html, /I build useful software for real people\./);
-  assert.match(html, /CS @ USF/);
-  assert.match(html, /Available 2026/);
+  assert.match(html, /<h1 id="hero-title">Software, data, and applied AI\.<\/h1>/);
+  assert.match(html, /<h2 id="about-title"[^>]*>About me\.<\/h2>/);
+  assert.doesNotMatch(html, /CS @ USF|Available 2026/);
+  assert.doesNotMatch(html, /I’m Keshav, a third-year computer science student/);
+  assert.doesNotMatch(html, /class="hero-copy"/);
   assert.match(html, /class="hero-primary"[^>]*href="mailto:keshavtyg@gmail\.com"/);
-  assert.match(html, /<h2 id="about-title"[^>]*>Curious by default\. Practical by design\.<\/h2>/);
   assert.match(html, /<h2 id="work-title"[^>]*>A few things I’ve built\.<\/h2>/);
   assert.match(html, /<h2 id="experience-title"[^>]*>Experience<\/h2>/);
   assert.match(html, /<h2 id="toolkit-title"[^>]*>Toolkit<\/h2>/);
