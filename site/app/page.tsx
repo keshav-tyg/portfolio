@@ -25,6 +25,51 @@ const projects = [
     ],
   },
   {
+    name: "Roomflow",
+    category: "Spatial design · ShellHacks 2026",
+    image: {
+      src: "/projects/roomflow.webp",
+      width: 1925,
+      height: 1035,
+      alt: "Roomflow studio showing a scanned bedroom in 3D beside its furniture list",
+    },
+    tags: ["Swift", "RoomPlan", "React", "Three.js", "Gemini"],
+    description:
+      "A room-design platform that turns iPhone LiDAR scans into editable 3D rooms, so you can try real furniture at true scale from a 2,246-product catalog before buying.",
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/skptre/roomflow",
+        ariaLabel: "Roomflow GitHub repository",
+      },
+    ],
+  },
+  {
+    name: "Local Focus Coach",
+    category: "Productivity + on-device AI",
+    image: {
+      src: "/projects/focus-coach.webp",
+      width: 1280,
+      height: 800,
+      alt: "Local Focus Coach intent prompt covering a short-video feed",
+    },
+    tags: ["TypeScript", "Chrome Extensions", "Java", "JavaFX", "Gemini Nano"],
+    description:
+      "A Chrome extension and macOS companion that notice doomscrolling on Reels, X, and Shorts and interrupt it, with on-device Gemini Nano and no backend, so nothing leaves your machine.",
+    links: [
+      {
+        label: "Chrome Web Store",
+        href: "https://chromewebstore.google.com/detail/llgkbdfkmgjpmlammmnidndocedopmol",
+        ariaLabel: "Local Focus Coach on the Chrome Web Store",
+      },
+      {
+        label: "GitHub",
+        href: "https://github.com/keshav-tyg/AI-Monitor",
+        ariaLabel: "Local Focus Coach GitHub repository",
+      },
+    ],
+  },
+  {
     name: "BayGuard Tampa",
     category: "Civic technology",
     image: {
@@ -183,7 +228,7 @@ export default function Home() {
           title="A few things I’ve built."
           className="work-section"
         >
-          <p className="work-note">Two projects shaped around clear problems and useful outcomes.</p>
+          <p className="work-note">Four projects shaped around clear problems and useful outcomes.</p>
           <div className="projects">
             {projects.map((project, projectIndex) => (
               <article className="project" key={project.name}>

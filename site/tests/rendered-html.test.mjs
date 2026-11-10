@@ -52,6 +52,15 @@ test("renders Keshav's portfolio content and verified links", async () => {
   assert.match(html, /id="contact"/);
   assert.match(html, /WealthLens/);
   assert.match(html, /BayGuard Tampa/);
+  assert.match(html, /https:\/\/github\.com\/skptre\/roomflow/);
+  assert.match(html, /https:\/\/github\.com\/keshav-tyg\/AI-Monitor/);
+  assert.match(html, /https:\/\/chromewebstore\.google\.com\/detail\/llgkbdfkmgjpmlammmnidndocedopmol/);
+
+  const projectOrder = ["WealthLens", "Roomflow", "Local Focus Coach", "BayGuard Tampa"].map(
+    (name) => html.indexOf(`<h3>${name}</h3>`),
+  );
+  assert.ok(projectOrder.every((index) => index >= 0));
+  assert.deepEqual(projectOrder, [...projectOrder].sort((a, b) => a - b));
   assert.match(html, /mailto:keshavtyg@gmail\.com/);
   assert.match(html, /https:\/\/github\.com\/keshav-tyg/);
   assert.match(html, /https:\/\/linkedin\.com\/in\/keshav--tyagi/);
@@ -68,10 +77,12 @@ test("renders Keshav's portfolio content and verified links", async () => {
   assert.doesNotMatch(html, /résumé|resume|keshav54@usf\.edu|813[ -]327[ -]9470/i);
 });
 
-test("ships optimized local screenshots for both projects", async () => {
+test("ships optimized local screenshots for every project", async () => {
   const assets = [
     new URL("../public/projects/wealthlens.webp", import.meta.url),
     new URL("../public/projects/bayguard.webp", import.meta.url),
+    new URL("../public/projects/roomflow.webp", import.meta.url),
+    new URL("../public/projects/focus-coach.webp", import.meta.url),
   ];
 
   for (const asset of assets) {
@@ -106,6 +117,14 @@ test("renders project screenshots from direct runtime-compatible asset URLs", as
     new RegExp(
       `<img[^>]*src="/projects/bayguard\\.webp"[^>]*width="${bayGuardDimensions.width}"[^>]*height="${bayGuardDimensions.height}"`,
     ),
+  );
+  assert.match(
+    html,
+    /<img[^>]*src="\/projects\/roomflow\.webp"[^>]*width="1925"[^>]*height="1035"/,
+  );
+  assert.match(
+    html,
+    /<img[^>]*src="\/projects\/focus-coach\.webp"[^>]*width="1280"[^>]*height="800"/,
   );
   assert.doesNotMatch(html, /\/_(?:vinext|next)\/image\b/i);
   assert.doesNotMatch(pageSource, /from\s+["']next\/image["']/);
@@ -185,6 +204,9 @@ test("documents deployment and exposes accessible link contracts", async () => {
     "LinkedIn profile",
     "WealthLens live site",
     "WealthLens GitHub repository",
+    "Roomflow GitHub repository",
+    "Local Focus Coach on the Chrome Web Store",
+    "Local Focus Coach GitHub repository",
     "BayGuard Tampa live site",
   ]) {
     assert.match(html, new RegExp(`aria-label="${label}"`, "i"));
